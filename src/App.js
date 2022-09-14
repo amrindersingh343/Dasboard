@@ -1,24 +1,46 @@
 import logo from './logo.svg';
 import './App.css';
+import Login from './Login';
+import Logout from './Logout';
+import {useDispatch, useSelector} from "react-redux";
+import {selectuser} from "./UserSlice";
+import HomePage from './home/HomePage';
+import { Box } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import {login} from "./UserSlice"
 
 function App() {
+  const user= useSelector(selectuser)
+  const dispatch=useDispatch();
+function handle(){
+  console.log("hello")
+};
+useEffect(()=>{
+const userData=JSON.parse(localStorage.getItem("user"));
+const tokendate=localStorage.getItem("Usertime")
+const currentdate=new Date().toLocaleDateString()
+if(userData){
+  const tokenvalidate=currentdate>tokendate;
+  if(!tokenvalidate){
+    console.log(tokenvalidate)
+    dispatch(login({user:true}));
+  }
+  else{
+    localStorage.removeItem("user");
+    localStorage.removeItem("Usertime");
+  }
+
+}
+},[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+    {/* <HomePage></HomePage> */}
+     {user ?<HomePage></HomePage> : <Login></Login>} 
+       
+       
+   </>
+
   );
 }
 

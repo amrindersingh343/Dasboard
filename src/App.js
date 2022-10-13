@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+import logo from './login/logo.svg';
 import './App.css';
-import Login from './Login';
-import Logout from './Logout';
+import Login from './login/Login';
+import Logout from './login/Logout';
 import { useDispatch, useSelector } from "react-redux";
 import { selectuser } from "./UserSlice";
 import HomePage from './home/HomePage';
